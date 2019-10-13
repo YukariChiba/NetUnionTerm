@@ -1,0 +1,640 @@
+html, body {
+  height: 100%;
+  overflow: hidden; }
+
+body {
+  background: #3a7bd5;
+  background-image: -webkit-radial-gradient(top, circle cover, #00d2ff 0%, #3a7bd5 80%);
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+* {
+  box-sizing: border-box; }
+
+textarea, input, button {
+  outline: none; }
+
+.window-button, .window .buttons .close, .window .buttons .minimize, .window .buttons .maximize {
+  padding: 0;
+  margin: 0;
+  margin-right: 4px;
+  width: 12px;
+  height: 12px;
+  background-color: gainsboro;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  color: rgba(0, 0, 0, 0.5); }
+
+.window {
+  position: absolute;
+  left: 20%;
+  top: 20%;
+  animation: bounceIn 1s ease-in-out;
+  width: 800px; }
+  .window .handle {
+    height: 22px;
+    background: linear-gradient(0deg, #d8d8d8, #ececec);
+    border-top: 1px solid white;
+    border-bottom: 1px solid #b3b3b3;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: rgba(0, 0, 0, 0.7);
+    font-family: Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 22px;
+    text-align: center; }
+  .window .buttons {
+    position: absolute;
+    float: left;
+    margin: 0 8px; }
+    .window .buttons .close {
+      background-color: #ff6159; }
+    .window .buttons .minimize {
+      background-color: #ffbf2f; }
+    .window .buttons .maximize {
+      background-color: #25cc3e; }
+  .window .terminal {
+    padding: 4px;
+    background-color: black;
+    opacity: 0.7;
+    height: 378px !important;
+    color: white;
+    font-family: 'Source Code Pro', monospace;
+    font-weight: 400;
+    font-size: 14px;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow-y: auto; }
+
+.terminal .terminal-output .format,
+.cmd .format,
+.cmd-prompt,
+.cmd-prompt div {
+  display: inline-block; }
+
+.terminal h1,
+.terminal h2,
+.terminal h3,
+.terminal h4,
+.terminal h5,
+.terminal h6,
+.terminal pre,
+.cmd {
+  margin: 0; }
+
+.cmd .cmd-clipboard {
+  position: absolute;
+  left: -16px;
+  top: 0;
+  width: 16px;
+  height: 16px;
+  background-color: transparent;
+  border: none;
+  color: transparent;
+  outline: none;
+  padding: 0;
+  resize: none;
+  z-index: 1000;
+  overflow: hidden;
+  white-space: pre;
+  text-indent: -9999em;
+  /* better cursor hiding for Safari and IE */
+  top: calc(var(--cursor-line, 0) * 1em); }
+
+.cmd span.cmd-end-line,
+.cmd span.cmd-end-line span,
+.cmd div.cmd-end-line span[data-text]:last-child,
+.cmd div.cmd-end-line span[data-text]:last-child span,
+.cmd .cursor + span:empty {
+  user-select: none; }
+
+.terminal img,
+.terminal audio,
+.terminal object,
+.terminal canvas {
+  cursor: default; }
+
+.terminal {
+  position: relative;
+  overflow-y: auto; }
+
+terminal.terminal-temp {
+  visibility: hidden; }
+
+.terminal {
+  contain: content; }
+
+.terminal > div:not(.terminal-font) {
+  min-height: 100%;
+  height: 100%; }
+
+.terminal > .terminal-resizer,
+.terminal > .terminal-font .terminal-resizer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+  height: 100%;
+  border: none;
+  padding: 0;
+  width: 100%; }
+
+.cmd {
+  padding: 0;
+  position: relative;
+  float: left;
+  width: 100%; }
+
+.terminal a[tabindex="1000"],
+.terminal a[tabindex="1000"]:active,
+.terminal a[tabindex="1000"]:focus {
+  outline: none; }
+
+.terminal .inverted,
+.cmd .inverted,
+.terminal .terminal-inverted,
+.cmd .cmd-inverted {
+  background-color: #aaa;
+  color: #000; }
+
+.cmd .cmd-cursor {
+  display: inline-block; }
+
+.cmd .cmd-cursor-line > span {
+  display: inline-block; }
+
+.cmd .cmd-cursor.cmd-blink span:not(.emoji) span {
+  animation: terminal-blink 1s infinite linear; }
+
+.cmd .cmd-cursor .emoji {
+  animation: terminal-blink 1s infinite linear; }
+
+.bar.terminal .inverted,
+.bar.cmd .cmd-inverted {
+  box-shadow: -2px 0 0 -1px #aaa;
+  box-shadow: -2px 0 0 -1px var(--original-color, #aaa); }
+
+.terminal .terminal .terminal-output > div > div,
+.cmd .cmd-prompt {
+  display: block;
+  /*line-height: 15px;*/
+  height: auto; }
+
+.terminal .terminal-output > div > div,
+.cmd div {
+  min-height: 12px;
+  min-height: calc(var(--size, 1) * 12px); }
+
+.terminal .terminal-output > div:not(.raw) div {
+  white-space: nowrap; }
+
+.cmd .cmd-prompt > span {
+  float: left; }
+
+.terminal-output > :not(.raw) .emoji,
+.cmd .emoji {
+  height: 14px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  color: transparent;
+  position: relative; }
+
+.terminal-output > :not(.raw) .emoji,
+.terminal-output > :not(.raw) .emoji span,
+.cmd .emoji,
+.cmd .emoji span {
+  display: inline-block;
+  width: 2ch; }
+
+.terminal,
+.cmd {
+  box-sizing: border-box;
+  cursor: text; }
+
+.cmd .cmd-cursor span:not(.token):not(.inverted) {
+  color: inherit;
+  background-color: inherit; }
+
+.cmd .emoji.emoji.emoji.emoji,
+.cmd .emoji.emoji.emoji.emoji span {
+  color: transparent;
+  background-color: transparent; }
+
+.cmd .cmd-cursor * {
+  background-color: transparent; }
+
+.cmd div {
+  clear: both; }
+
+.cmd .cmd-prompt + div {
+  clear: right; }
+
+.terminal-output > div > div,
+.cmd div {
+  min-height: 15px; }
+
+.terminal .terminal-output > div {
+  margin-top: -1px; }
+
+.terminal-output > div.raw > div * {
+  overflow-wrap: break-word;
+  word-wrap: break-word; }
+
+.terminal .terminal-font {
+  position: absolute;
+  float: left;
+  font-size: inherit;
+  line-height: inherit;
+  top: -100%;
+  left: 0;
+  margin-bottom: 1px; }
+
+.cmd > span:not(.cmd-prompt) {
+  float: left; }
+
+.cmd .cmd-prompt span.cmd-line {
+  display: block;
+  float: none; }
+
+.terminal table {
+  border-collapse: collapse; }
+
+.terminal td {
+  border: 1px solid #aaa; }
+
+.cmd.cmd span[data-text]:not(.emoji) span {
+  background-color: inherit;
+  color: inherit; }
+
+/* fix for underline on middle line */
+.cmd[role="presentation"].cmd-cursor-line {
+  position: relative;
+  z-index: 100; }
+
+/* prompt above cursor line */
+.cmd .cmd-prompt {
+  position: relative;
+  z-index: 200; }
+
+.cmd[role="presentation"]:not(.cmd-cursor-line) {
+  overflow: hidden; }
+
+.cmd {
+  --original-color: var(--color, #aaa); }
+
+.terminal .terminal-output > :not(.raw) .terminal-error,
+.terminal .terminal-output > :not(.raw) .terminal-error * {
+  color: red;
+  color: var(--error-color, red); }
+
+.tilda {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1100; }
+
+.ui-dialog-content .terminal {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box; }
+
+.ui-dialog .ui-dialog-content.dterm {
+  padding: 0; }
+
+.clear {
+  clear: both; }
+
+.terminal .terminal-output > :not(.raw) a[href] {
+  color: #0f60ff;
+  color: var(--link-color, #0f60ff);
+  cursor: pointer; }
+
+.terminal .terminal-output > :not(.raw) a[href]:hover {
+  background-color: #0f60ff;
+  background-color: var(--link-color, #0f60ff);
+  color: var(--background, #000) !important;
+  text-decoration: none; }
+
+.terminal .terminal-fill {
+  position: absolute;
+  left: 0;
+  top: -100%;
+  width: 100%;
+  height: 100%;
+  margin: 1px 0 0;
+  border: none;
+  opacity: 0.01;
+  pointer-events: none;
+  box-sizing: border-box; }
+
+.terminal,
+.terminal .terminal-fill {
+  padding: 10px; }
+
+/* padding added as margin to .cmd to fix FireFox bug see: https://stackoverflow.com/q/29986977/387194 */
+.terminal {
+  padding-bottom: 0; }
+
+.terminal .cmd {
+  margin-bottom: 10px; }
+
+.terminal,
+.terminal-output > :not(.raw) span:not(.token):not(.inverted):not(.terminal-inverted):not(.cmd-inverted):not(.terminal-error):not(.emoji),
+.terminal-output > :not(.raw) a,
+.terminal-output > :not(.raw) div,
+.cmd,
+.cmd span:not(.cmd-inverted):not(.token):not(.emoji),
+.cmd div {
+  color: var(--color, #aaa);
+  background-color: var(--background, #000); }
+
+.terminal span[style*="--length"] {
+  width: calc(var(--length, 1) * var(--char-width, 7.23438) * 1px);
+  display: inline-block; }
+
+.terminal-output > :not(.raw) .emoji,
+.cmd .emoji {
+  height: calc(var(--size, 1) * 14px); }
+
+.cmd .clipboard {
+  top: calc(var(--size, 1) * 14 * var(--cursor-line, 0) * 1px); }
+
+.terminal .inverted,
+.cmd .inverted {
+  background-color: var(--color, #aaa);
+  color: var(--background, #000); }
+
+.cmd div {
+  min-height: calc(var(--size, 1) * 14px); }
+
+.cmd .cmd-cursor.cmd-blink {
+  color: var(--color, #aaa);
+  background-color: var(--background, #000); }
+
+.cmd .cmd-cursor.cmd-blink span:not(.emoji) span {
+  animation: var(--animation, terminal-blink) 1s infinite linear; }
+
+.cmd .cmd-cursor.cmd-blink .emoji {
+  animation: var(--animation, terminal-blink) 1s infinite linear; }
+
+.cmd .cmd-cursor.cmd-blink .emoji span {
+  color: transparent; }
+
+.terminal h1::selection,
+.terminal h2::selection,
+.terminal h3::selection,
+.terminal h4::selection,
+.terminal h5::selection,
+.terminal h6::selection,
+.terminal pre::selection,
+.terminal td::selection,
+.terminal .terminal-output div div::selection,
+.terminal .terminal-output div span::selection,
+.cmd div::selection,
+.cmd > span::selection,
+.cmd > span span::selection,
+.cmd > div::selection,
+.cmd > div span::selection,
+.cmd .cmd-prompt span::selection {
+  background-color: var(--color, rgba(170, 170, 170, 0.99)) !important;
+  color: var(--background, #000) !important; }
+
+.terminal .terminal-output div div a::selection {
+  background-color: var(--link-color, rgba(15, 96, 255, 0.99)) !important;
+  color: var(--background, #000) !important; }
+
+.terminal .terminal-output div div a:hover::selection {
+  background-color: var(--link-color, rgba(2, 50, 144, 0.99)) !important; }
+
+.terminal .token.operator,
+.terminal .token.entity,
+.terminal .token.variable,
+.terminal .token.url,
+.terminal .token.string,
+.terminal .style .token.string,
+.terminal .token.token,
+.cmd .token.operator,
+.cmd .token.entity,
+.cmd .token.variable,
+.cmd .token.url,
+.cmd .token.string,
+.cmd .style .token.string,
+.cmd .token.token {
+  background-color: inherit; }
+
+/* style for autocomplete menu */
+.cmd .cursor-wrapper ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  float: left;
+  position: absolute;
+  top: 14px;
+  left: 0; }
+
+.cmd .cursor-wrapper li {
+  cursor: pointer;
+  white-space: nowrap; }
+
+.cmd .cursor-wrapper li:hover {
+  background: #aaa;
+  color: #000; }
+
+.cursor-wrapper {
+  position: relative; }
+
+/* images */
+.terminal-output div[style*="100%;"] {
+  overflow: hidden; }
+
+.terminal-output img {
+  display: block; }
+
+@keyframes blink {
+  50% {
+    color: transparent; } }
+
+@keyframes bounceIn {
+  0% {
+    transform: translateY(-1000px); }
+  60% {
+    transform: translateY(200px); }
+  100% {
+    transform: translateY(0px); } }
+
+@keyframes terminal-blink {
+  0%, 100% {
+    left: 0;
+    color: #bbb;
+    color: var(--original-color, #aaa);
+    background-color: #000;
+    background-color: var(--background, #000);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    margin: 0; }
+  50% {
+    left: 0;
+    color: #000;
+    background: #bbb;
+    -webkit-box-shadow: 0 0 5px var(--color, #aaa);
+    box-shadow: 0 0 5px var(--color, #aaa);
+    border: none;
+    padding: 0;
+    margin: 0;
+    border-bottom: 2px solid transparent; } }
+
+@keyframes terminal-glow {
+  0%, 50% {
+    background-color: #aaa;
+    background-color: var(--original-color, #aaa);
+    color: #000;
+    color: var(--background, #000);
+    box-shadow: 0 0 3px #aaa;
+    box-shadow: 0 0 3px var(--color, #aaa); }
+  50.1%, 100% {
+    background-color: inherit;
+    color: inherit;
+    box-shadow: none; } }
+
+@keyframes terminal-bar {
+  0%, 50% {
+    box-shadow: -2px 0 0 -1px #aaa;
+    box-shadow: -2px 0 0 -1px var(--original-color, #aaa); }
+  50.1%, 100% {
+    box-shadow: none; } }
+
+@keyframes terminal-underline {
+  0%, 50% {
+    box-shadow: 0 2px 0 #aaa;
+    box-shadow: 0 2px 0 var(--original-color, #aaa); }
+  50.1%, 100% {
+    box-shadow: none; } }
+
+@keyframes docker-click {
+  0% {
+    transform: translateY(0px) translateX(0.1px); }
+  25% {
+    transform: translateY(-40px) translateX(0.1px); }
+  50% {
+    transform: translateY(0px) translateX(0.1px); }
+  75% {
+    transform: translateY(-20px) translateX(0.1px); }
+  100% {
+    transform: translateY(0px) translateX(0.1px); }
+  0% {
+    filter: brightness(100%); }
+  100% {
+    filter: brightness(50%); } }
+
+@keyframes docker-unclick {
+  0% {
+    transform: translateY(0px) translateX(0.1px); }
+  25% {
+    transform: translateY(-40px) translateX(0.1px); }
+  50% {
+    transform: translateY(0px) translateX(0.1px); }
+  75% {
+    transform: translateY(-20px) translateX(0.1px); }
+  100% {
+    transform: translateY(0px) translateX(0.1px); }
+  100% {
+    filter: brightness(100%); }
+  0% {
+    filter: brightness(50%); } }
+
+.underline-animation .cmd-cursor.cmd-blink span span {
+  animation-name: terminal-underline; }
+
+.glow-animation .cmd-cursor.cmd-blink span span {
+  animation-name: terminal-glow; }
+
+.bar-animation .cmd-cursor.cmd-blink span span {
+  animation-name: terminal-bar; }
+
+.logo-d {
+  text-align: center;
+  margin-top: 220px; }
+
+.logo-d img {
+  width: 40%;
+  height: 40%; }
+
+.line {
+  margin: 0 auto;
+  width: 45%;
+  height: 5px;
+  background: #fff;
+  border-radius: 20px 60px 20px 50px; }
+
+.docker #dock {
+  width: 100%;
+  text-align: center;
+  margin: 0 auto; }
+
+.docker {
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+  right: 20%;
+  left: 10%;
+  width: 79%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px 10px 0 0; }
+
+.docker li {
+  margin-left: 2.5px;
+  margin-right: 2.5px;
+  list-style-type: none;
+  display: inline-block;
+  position: relative; }
+  .docker li {
+    animation-name: docker-unclick;
+    animation-duration: 1.2s; }
+  .docker li:active {
+    animation-name: docker-click;
+    animation-duration: 1.2s; }
+
+.docker li img {
+  width: 50px;
+  height: 50px;
+  -webkit-box-reflect: below 2px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(0.7, transparent), to(rgba(255, 255, 255, 0.5)));
+  transition: all 0.3s;
+  transform-origin: 40% 70%; }
+
+.docker li:hover img {
+  transform: scale(2);
+  margin: 0 2em; }
+
+.docker li:hover + li img,
+.docker li.prev img {
+  transform: scale(1.5);
+  margin: 0 1.5em; }
+
+.docker li span {
+  display: none;
+  position: absolute;
+  bottom: 100px;
+  left: 0;
+  width: 100%;
+  background-color: #222;
+  padding: 4px 0;
+  border-radius: 7px; }
+
+.docker li:hover span {
+  display: block;
+  color: #fff; }
+
+/*# sourceMappingURL=style.css.map */

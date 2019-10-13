@@ -1,0 +1,107 @@
+@keyframes blink { 50% { color: transparent; } }
+@keyframes bounceIn {
+  0% {
+    transform: translateY(-1000px);
+  }
+  60% {
+    transform: translateY(200px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes terminal-blink {
+    0%, 100% {
+        left: 0;
+        color: #bbb;
+        color: var(--original-color, #aaa);
+        background-color: #000;
+        background-color: var(--background, #000);
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+    50% {
+        left: 0;
+        color: #000;
+        background: #bbb;
+        -webkit-box-shadow: 0 0 5px var(--color, #aaa);
+        box-shadow: 0 0 5px var(--color, #aaa);
+        border: none;
+        padding: 0;
+        margin: 0;
+        border-bottom: 2px solid transparent;
+    }
+}
+@keyframes terminal-glow {
+    0%, 50% {
+        background-color: #aaa;
+        background-color: var(--original-color, #aaa);
+        color: #000;
+        color: var(--background, #000);
+        box-shadow: 0 0 3px #aaa;
+        box-shadow: 0 0 3px var(--color, #aaa);
+    }
+    50.1%, 100% {
+        background-color: inherit;
+        color: inherit;
+        box-shadow: none;
+    }
+}
+@keyframes terminal-bar {
+    0%, 50% {
+        box-shadow: -2px 0 0 -1px #aaa;
+        box-shadow: -2px 0 0 -1px var(--original-color, #aaa);
+    }
+    50.1%, 100% {
+        box-shadow: none;
+    }
+}
+@keyframes terminal-underline {
+    0%, 50% {
+        box-shadow: 0 2px 0 #aaa;
+        box-shadow: 0 2px 0 var(--original-color, #aaa);
+    }
+    50.1%, 100% {
+        box-shadow: none;
+    }
+}
+
+@keyframes docker-click {
+    0%{ transform:translateY(0px) translateX(0.1px); }
+    25%{ transform:translateY(-40px) translateX(0.1px); }
+    50%{ transform:translateY(0px) translateX(0.1px); }
+    75%{ transform:translateY(-20px) translateX(0.1px); }
+    100%{ transform:translateY(0px) translateX(0.1px); }
+    0% {
+        filter: brightness(100%);
+    }
+    100% {
+        filter: brightness(50%);
+    }
+}
+@keyframes docker-unclick {
+    0%{ transform:translateY(0px) translateX(0.1px); }
+    25%{ transform:translateY(-40px) translateX(0.1px); }
+    50%{ transform:translateY(0px) translateX(0.1px); }
+    75%{ transform:translateY(-20px) translateX(0.1px); }
+    100%{ transform:translateY(0px) translateX(0.1px); }
+    100% {
+        filter: brightness(100%);
+    }
+    0% {
+        filter: brightness(50%);
+    }
+}
+.underline-animation .cmd-cursor.cmd-blink span span {
+    animation-name: terminal-underline;
+}
+.glow-animation .cmd-cursor.cmd-blink span span {
+    animation-name: terminal-glow;
+}
+.bar-animation .cmd-cursor.cmd-blink span span {
+    animation-name: terminal-bar;
+}
